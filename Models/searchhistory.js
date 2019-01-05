@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const history = mongoose.Schema({
+const history = new mongoose.Schema({
     search_name: {
         type: String,
         required: true,

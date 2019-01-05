@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <title>Image search</title>
+</head>
+
+<body>
+    <ul class="nav justify-content-center py-2 " style="background-color: #e3f2fd;">
+        <li class="nav-item">
+
+            <input type="text" id="searchbar" class="form-control" placeholder="Search" aria-label="Username"
+                aria-describedby="basic-addon1">
+
+        </li>
+        <li class="nav-item px-2">
+
+
+            <i id="search" class="fas fa-search" style="font-size: 32px"></i>
+        </li>
+
+    </ul>
+</body>
+<script>
+    $("#search").click((e) => {
+        $.ajax({
+            url: `http://localhost:3000/api/imagesearch/${$("#searchbar").val()}`,
+            type: "GET"
+        }).done(data => {
+            console.log(data)
+            $("body").append("<div class='container'></div>")
+            $(".container").append("<div class='row'></div>")
+            data.queryExpansions.forEach((imgData) => {
+                $(".row").append("<div class='col-sm-3'><img src=" + imgData.thumbnail.thumbnailUrl + " alt=" + imgData.text + "></div>")
+
+            })
+        })
+    })
+</script>
+
+</html>

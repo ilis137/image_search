@@ -9,7 +9,7 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 
-app.set("view engine", hbs)
+app.set("view engine", "hbs")
 app.use(cors())
 app.use(require("body-parser").json())
 app.use(require("body-parser").urlencoded({ extended: true }))
