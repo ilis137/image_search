@@ -38,10 +38,11 @@
             type: "GET"
         }).done(data => {
             console.log(data)
+            $(".container").remove()
             $("body").append("<div class='container'></div>")
             $(".container").append("<div class='row'></div>")
             data.queryExpansions.forEach((imgData) => {
-                $(".row").append("<div class='col-sm-3'><img src=" + imgData.thumbnail.thumbnailUrl + " alt=" + imgData.text + "></div>")
+                $(".row").append("<div class='col-sm-4 col-xs-12 col-md-3 card my-2' style='max-height:400px;background-size:cover'><img  style='max-height:400px;background-position:center;'src=" + imgData.thumbnail.thumbnailUrl + " alt=" + imgData.text + " ></div>")
 
             })
         })
