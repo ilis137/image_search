@@ -1,6 +1,6 @@
 const keys = require("../config/keys")
 const Bing = require('node-bing-api')({ accKey: "0112a649fd944630b0954a20ac8c71f6" });
-//let History = require("../Models/searchhistory")
+var History = require("../Models/searchhistory")()
 module.exports = (app) => {
 
     app.get("/api/imagesearch/:searchname", (req, response) => {
@@ -11,13 +11,14 @@ module.exports = (app) => {
             count: 100,
             offset: 0
         }, (error, res, body) => {
-            // const hist = new History({
-
-            //     })
-            // hist.save().then(() => {
-
-            // })
-            // response.render("index")
+            const hist = new History({
+                search_name: query,
+                date: new Date()
+            })
+            hist.save().then((doc) => {
+                    console.log(doc)
+                })
+                // response.render("index")
             response.send(body)
         })
     })
