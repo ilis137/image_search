@@ -17,7 +17,7 @@
 
 <body>
     <ul class="nav justify-content-center py-2 " style="background-color: #e3f2fd;">
-        <li class="nav-item">
+        <li class="nav-item ">
 
             <input type="text" id="searchbar" class="form-control" placeholder="Search" aria-label="Username"
                 aria-describedby="basic-addon1">
@@ -30,6 +30,16 @@
         </li>
 
     </ul>
+    <div class="row ">
+        <div class="col-sm-3 history-sec">
+            <h5 class="text-center">Search History</h5>
+        </div>
+        <div class="col-sm-9 results">
+            <div class="d-flex justify-content-end align-items-center py-4 px-2"><label for="perPage" class="px-2">Per
+                    Page</label><input type="text" name='perPage' id="pagination" class="form-control" style="width:10%" /></div>
+        </div>
+
+    </div>
 </body>
 <script>
     $("#search").click((e) => {
@@ -39,14 +49,32 @@
         }).done(data => {
             console.log(data)
             $(".container").remove()
-            $("body").append("<div class='container'></div>")
+            $(".results").append("<div class='container'></div>")
             $(".container").append("<div class='row'></div>")
             data.queryExpansions.forEach((imgData) => {
-                $(".row").append("<div class='col-sm-4 col-xs-12 col-md-3 card my-2' style='max-height:400px;background-size:cover'><img  style='max-height:400px;background-position:center;'src=" + imgData.thumbnail.thumbnailUrl + " alt=" + imgData.text + " ></div>")
+                $(".row").append("<div class='col-sm-6 col-xs-12 col-md-4 card my-2 ' style='max-height:400px;background-size:cover;'><img  style='max-height:400px;background-position:center;'src=" + imgData.thumbnail.thumbnailUrl + " alt=" + imgData.text + " ></div>")
 
             })
         })
     })
+
+    $(document).ready(() => {
+        $.ajax({
+            url: `http://localhost:3000/api/history`,
+            type: "GET"
+        }).done((docs) => {
+            console.log(docs)
+            $(".search-history").remove()
+            $(".history-sec").append(" <ul class='search-history ' style='height:300px;overflow:auto'></ul>")
+            docs.forEach((doc) => {
+                $(".search-history").append("<li class='search' style='cursor:pointer'>" + doc.search_name + "</li>")
+            })
+
+        })
+
+    })
+
+
 </script>
 
 </html>

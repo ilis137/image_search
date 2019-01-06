@@ -23,6 +23,11 @@ module.exports = (app) => {
         })
     })
 
+    app.get("/api/history", (req, response) => {
+        History.find().then(doc => {
+            response.send(doc)
+        })
+    })
     app.get("/", (req, res) => {
         res.render("index")
     })
